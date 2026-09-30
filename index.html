@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chill Dripp × Estrategia Digital Mensual</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea580c',
+            },
+            chill: {
+              neon: '#22d3ee',
+              amber: '#f59e0b',
+              violet: '#a855f7',
+              dark: '#090d16',
+              card: '#111827',
+              border: '#1f293d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-card {
+      background: rgba(17, 24, 39, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-amber {
+      box-shadow: 0 0 50px -10px rgba(245, 158, 11, 0.25);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 50px -10px rgba(34, 211, 238, 0.25);
+    }
+    .slide-transition {
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* Hide scrollbars for clean slide deck experience */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased h-full overflow-hidden select-none flex flex-col justify-between">
+
+  <!-- Background Ambience Gradients -->
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-purple-600/5 rounded-full blur-[140px]"></div>
+  </div>
+
+  <!-- Top Navigation & Controls Header -->
+  <header class="w-full px-6 py-4 border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-md flex items-center justify-between z-30">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center font-black text-slate-950 font-display text-lg tracking-wider shadow-lg shadow-amber-500/20">
+        CD
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-sm tracking-wide text-white font-display">CHILL DRIPP</span>
+          <span class="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-amber-400/10 text-amber-400 border border-amber-400/20">Drinks Truck</span>
+        </div>
+        <p class="text-xs text-slate-400">Propuesta de Contenido Mensual · Octubre</p>
+      </div>
+    </div>
+
+    <!-- Progress indicator & slide actions -->
+    <div class="flex items-center gap-4">
+      <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-slate-800 text-xs font-medium text-slate-300">
+        <span id="current-slide-num" class="text-amber-400 font-bold font-display text-sm">01</span>
+        <span class="text-slate-600">/</span>
+        <span id="total-slides-num" class="text-slate-400 font-medium">10</span>
+      </div>
+
+      <button id="overview-btn" title="Ver resumen de diapositivas" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-amber-500/50 hover:text-amber-400 transition-all text-xs font-semibold flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+        <span class="hidden sm:inline">Índice</span>
+      </button>
+
+      <button id="fullscreen-btn" title="Pantalla completa" class="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white transition-all text-slate-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="presentation-viewport" class="relative flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 flex items-center justify-center overflow-y-auto no-scrollbar">
+
+    <!-- SLIDE 1: Portada y Declaración de Impacto -->
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center active opacity-100 scale-100" data-slide="1">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 md:p-14 border border-amber-500/20 relative overflow-hidden glow-amber">
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            Estrategia Mensual de Crecimiento & Ventas
+          </span>
+          <span class="text-xs text-slate-400">Popayán · Frente a Edificio Ikonos</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight font-display text-white leading-tight mb-4">
+          Convertir a <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-200">Chill Dripp</span> en el parche fijo de la semana.
+        </h1>
+
+        <p class="text-slate-300 text-base sm:text-xl font-normal max-w-2xl mb-8 leading-relaxed">
+          Menos publicaciones corporativas aburridas, más ganas de parchar. Una estrategia audiovisual enfocada en antojo visual, coctelería de autor, precios aterrizados y llenar mesas.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800/80">
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800">
+            <span class="text-amber-400 font-display font-bold text-2xl">5</span>
+            <p class="text-xs text-slate-400 mt-1">Reels Virales con Guion</p>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800">
+            <span class="text-cyan-400 font-display font-bold text-2xl">5</span>
+            <p class="text-xs text-slate-400 mt-1">Posts de Alto Valor & Menú</p>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800">
+            <span class="text-purple-400 font-display font-bold text-2xl">4</span>
+            <p class="text-xs text-slate-400 mt-1">Módulos Destacadas Clave</p>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800">
+            <span class="text-emerald-400 font-display font-bold text-2xl">1</span>
+            <p class="text-xs text-slate-400 mt-1">Especial de Halloween</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center hidden opacity-0 scale-95" data-slide="2">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs uppercase font-bold tracking-wider text-cyan-400 font-display">01 / Diagnóstico & Oportunidad</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-bold font-display text-white mb-3">
+          ¿Cuál es la jugada psicológica de la marca?
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base max-w-3xl mb-8">
+          Entender a quién le hablamos y por qué eligen Chill Dripp frente a cualquier otro bar o restaurante de Popayán.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Punto A -->
+          <div class="bg-red-950/20 border border-red-500/30 rounded-2xl p-6 relative overflow-hidden">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-sm">A</span>
+              <h3 class="font-display font-bold text-lg text-white">El Punto de Dolor de la Gente</h3>
+            </div>
+            <p class="text-slate-300 text-sm mb-4">
+              Salen saturados de la oficina en Ikonos, colapsados de parciales en la U o cansados de la rutina de la semana.
+            </p>
+            <ul class="text-xs text-slate-400 space-y-2">
+              <li class="flex items-center gap-2"><span class="text-red-400 font-bold">✕</span> No quieren meterse a sitios acartonados ni con música ensordecedora.</li>
+              <li class="flex items-center gap-2"><span class="text-red-400 font-bold">✕</span> Pereza de pagar cuentas infladas por tragos simples.</li>
+              <li class="flex items-center gap-2"><span class="text-red-400 font-bold">✕</span> Irse directo a la casa se siente como desperdiciar la tarde.</li>
+            </ul>
+          </div>
+
+          <!-- Punto B -->
+          <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-6 relative overflow-hidden">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">B</span>
+              <h3 class="font-display font-bold text-lg text-white">La Experiencia Chill Dripp</h3>
+            </div>
+            <p class="text-slate-300 text-sm mb-4">
+              Cruzar la calle y encontrar el verdadero spot antiestrés al aire libre con vibra descomplicada.
+            </p>
+            <ul class="text-xs text-slate-300 space-y-2">
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Coctelería de autor premium sin pagar precios absurdos.</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Picadas deliciosas al centro de la mesa para compartir fácil.</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Buena música, brisa payanesa y conversación real.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center text-xs sm:text-sm text-slate-300">
+          <span class="text-amber-400 font-bold">Nuestra Regla de Oro:</span> El contenido debe sentirse como una invitación del parche de amigos, nunca como un folleto comercial frío.
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center hidden opacity-0 scale-95" data-slide="3">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs uppercase font-bold tracking-wider text-amber-400 font-display">02 / El Plan Mensual</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-bold font-display text-white mb-2">
+          El Paquete de Entregables
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base max-w-2xl mb-6">
+          Un ecosistema diseñado para cubrir descubrimiento (Reels), conversión y menú (Feed), y retención de visitantes (Historias Destacadas).
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 1 -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-amber-500/30 flex flex-col justify-between hover:border-amber-400 transition-all">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xl mb-4 font-display">
+                05
+              </div>
+              <h3 class="text-lg font-bold text-white font-display mb-2">Reels de Retención</h3>
+              <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                Diseñados con estructura de 5 partes (Hook, Pico, Valor, Moraleja y CTA). Foco en viralidad, guardados y envíos directos por WhatsApp.
+              </p>
+            </div>
+            <span class="text-[11px] font-semibold text-amber-400 tracking-wide uppercase">Generadores de Tráfico Masivo</span>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-cyan-500/30 flex flex-col justify-between hover:border-cyan-400 transition-all">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-xl mb-4 font-display">
+                05
+              </div>
+              <h3 class="text-lg font-bold text-white font-display mb-2">Posts & Carruseles</h3>
+              <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                Foco en romper objeciones: precios claros de las picadas, cómo llegar frente a Ikonos, especial de Halloween y dinámicas comunitarias.
+              </p>
+            </div>
+            <span class="text-[11px] font-semibold text-cyan-400 tracking-wide uppercase">Decisión de Compra y Menú</span>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-purple-500/30 flex flex-col justify-between hover:border-purple-400 transition-all">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-xl mb-4 font-display">
+                04
+              </div>
+              <h3 class="text-lg font-bold text-white font-display mb-2">Historias Destacadas</h3>
+              <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                Reorganización visual del perfil. Quien entre por primera vez al Instagram de Chill Dripp encuentra carta, fotos, precios y ubicación en 3 segundos.
+              </p>
+            </div>
+            <span class="text-[11px] font-semibold text-purple-400 tracking-wide uppercase">Conversión Inmediata de Visitas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center hidden opacity-0 scale-95" data-slide="4">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs uppercase font-bold tracking-wider text-orange-400 font-display">03 / La Fórmula de Retención</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-bold font-display text-white mb-2">
+          ¿Por qué nuestros guiones funcionan?
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base max-w-2xl mb-6">
+          No dejamos ningún segundo al azar. Cada video sigue la psicología de consumo rápido para evitar que el usuario deslice y se vaya.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3">
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 font-mono text-[10px] font-bold">0-2 Seg</span>
+              <h4 class="font-display font-bold text-sm text-white mt-2 mb-1">1. Hook</h4>
+              <p class="text-[11px] text-slate-400">Frena el scroll con corte visual y una frase que resuena con su realidad.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-[10px] font-bold">2-6 Seg</span>
+              <h4 class="font-display font-bold text-sm text-white mt-2 mb-1">2. Pico de Interés</h4>
+              <p class="text-[11px] text-slate-400">Promete el alivio o la solución. Genera expectativa para no salirse del video.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400 font-mono text-[10px] font-bold">6-25 Seg</span>
+              <h4 class="font-display font-bold text-sm text-white mt-2 mb-1">3. Valor</h4>
+              <p class="text-[11px] text-slate-400">Tomas dinámicas de coctelería, hielo, fuego, picadas y amigos riendo.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 font-mono text-[10px] font-bold">Cierre</span>
+              <h4 class="font-display font-bold text-sm text-white mt-2 mb-1">4. Moraleja</h4>
+              <p class="text-[11px] text-slate-400">Insight corto que conecta emocionalmente con la experiencia del parche.</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px] font-bold">Acción</span>
+              <h4 class="font-display font-bold text-sm text-white mt-2 mb-1">5. Cierre + CTA</h4>
+              <p class="text-[11px] text-slate-400">Llamado claro: compartir en grupo, guardar o comentar para ganar interacción.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/20">
+          <div class="text-xs text-slate-300">
+            <span class="text-amber-400 font-bold">Ritmo natural:</span> Guiones medidos a 140-150 palabras/minuto con pausas y énfasis para sonar como gente real.
+          </div>
+          <span class="text-xs text-amber-300 font-semibold">Cero tono de locutor acartonado →</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center hidden opacity-0 scale-95" data-slide="5">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs uppercase font-bold tracking-wider text-amber-400 font-display">04 / Producción Audiovisual</span>
+          <span class="text-xs text-slate-400">Guiones 1 & 2</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold font-display text-white mb-6">
+          Descompresión Diaria & Especial de Halloween
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Reel 1 -->
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-amber-500/20 text-amber-400">REEL 1 · Viral / Antiestrés</span>
+                <span class="text-xs text-slate-400 font-mono">~30 seg</span>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">El Parche Antiestrés Post-Ofi / Post-U</h3>
+              <p class="text-xs text-slate-300 italic mb-3 bg-slate-950 p-2.5 rounded-lg border border-slate-800/80">
+                "Si hoy tu jefe... o ese parcial casi te reinicia la vida... PAUSA. Porque el día no se termina cerrando el computador... se termina AQUÍ."
+              </p>
+              <div class="text-xs text-slate-400 space-y-1">
+                <p><strong class="text-slate-300">Escena clave:</strong> Cruce al frente de Ikonos, shake de coctelera y tabla de picada al centro.</p>
+                <p><strong class="text-slate-300">Llamado:</strong> Compartir en el grupo de WhatsApp ("Al que no responda le toca la primera ronda").</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+              <span>Objetivo: Compartidos Masivos</span>
+              <span class="text-amber-400 font-semibold">Viralidad Local</span>
+            </div>
+          </div>
+
+          <!-- Reel 2 -->
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-purple-500/20 text-purple-300">REEL 2 · Lanzamiento Nicho</span>
+                <span class="text-xs text-slate-400 font-mono">~35 seg</span>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">Cóctel Especial de Halloween</h3>
+              <p class="text-xs text-slate-300 italic mb-3 bg-slate-950 p-2.5 rounded-lg border border-slate-800/80">
+                "En Popayán casi nadie se arriesga con coctelería temática... hasta HOY. Mezclamos notas cítricas, toque especiado... y un perfil que parece de película de terror."
+              </p>
+              <div class="text-xs text-slate-400 space-y-1">
+                <p><strong class="text-slate-300">Escena clave:</strong> Garnish temático, humo o cristalería fría en primer plano.</p>
+                <p><strong class="text-slate-300">Llamado:</strong> Guardar el reel para pedirlo directamente al bartender en barra.</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+              <span>Objetivo: Exclusividad / Guardados</span>
+              <span class="text-purple-400 font-semibold">Ventas de Temporada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center hidden opacity-0 scale-95" data-slide="6">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs uppercase font-bold tracking-wider text-cyan-400 font-display">05 / Producción Audiovisual</span>
+          <span class="text-xs text-slate-400">Guiones 3 & 4</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold font-display text-white mb-6">
+          Comunidad Detrás de Barra & El Match Perfecto
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Reel 3 -->
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-cyan-500/20 text-cyan-300">REEL 3 · Humanización / Vínculo</span>
+                <span class="text-xs text-slate-400 font-mono">~45 seg</span>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">Chismecito de Domingo Detrás de la Barra</h3>
+              <p class="text-xs text-slate-300 italic mb-3 bg-slate-950 p-2.5 rounded-lg border border-slate-800/80">
+                "Ustedes no se imaginan lo que se escucha detrás de esta barra... El man que llegó diciendo 'solo uno y me voy' y terminó arreglando el país hasta la medianoche."
+              </p>
+              <div class="text-xs text-slate-400 space-y-1">
+                <p><strong class="text-slate-300">Estilo:</strong> Confidencial, bartender hablando a cámara mientras alista copas.</p>
+                <p><strong class="text-slate-300">Llamado:</strong> "¿Eres de los que dice 'un trago y me voy'? Confiésalo abajo".</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+              <span>Objetivo: Comentarios Orgánicos</span>
+              <span class="text-cyan-400 font-semibold">Fidelización</span>
+            </div>
+          </div>
+
+          <!-- Reel 4 -->
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-emerald-500/20 text-emerald-300">REEL 4 · Maridaje & Ticket Promedio</span>
+                <span class="text-xs text-slate-400 font-mono">~25 seg</span>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">Cóctel de Autor + Cositas para Picar</h3>
+              <p class="text-xs text-slate-300 italic mb-3 bg-slate-950 p-2.5 rounded-lg border border-slate-800/80">
+                "El error número uno al salir a tomar cócteles... es no pedir nada para picar. Y no, no tienes que dejarte medio sueldo para comer sabroso."
+              </p>
+              <div class="text-xs text-slate-400 space-y-1">
+                <p><strong class="text-slate-300">Tomas:</strong> Cenital de salsas, sonido crujiente al morder y choque de copas.</p>
+                <p><strong class="text-slate-300">Llamado:</strong> Etiquetar a quien siempre tiene hambre cuando sale a tomar.</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+              <span>Objetivo: Subir Consumo por Mesa</span>
+              <span class="text-emerald-400 font-semibold">Antojo Directo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center hidden opacity-0 scale-95" data-slide="7">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs uppercase font-bold tracking-wider text-pink-400 font-display">06 / Feed & Debate</span>
+          <span class="text-xs text-slate-400">Reel 5 + 5 Posts de Feed</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold font-display text-white mb-4">
+          Debate Relatable & Contenido Guardable en Feed
+        </h2>
+
+        <!-- Reel 5 Highlight -->
+        <div class="p-4 rounded-2xl bg-gradient-to-r from-pink-950/30 to-purple-950/20 border border-pink-500/30 mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-pink-400">REEL 5 · Viral / Debate de Amigos (~35 seg)</span>
+            <h4 class="font-bold text-white text-base">"El amigo que va a un truck de autor y pide lo mismo de siempre"</h4>
+            <p class="text-xs text-slate-300 mt-1">Estimula la etiqueta del amigo "terco" y destaca la variedad y calidad de las recetas de la casa.</p>
+          </div>
+          <span class="px-3 py-1.5 rounded-lg bg-pink-500/20 text-pink-300 text-xs font-semibold whitespace-nowrap border border-pink-500/30">
+            Alta tasa de etiquetas
+          </span>
+        </div>
+
+        <!-- 5 Posts Summary Grid -->
+        <h4 class="text-xs uppercase tracking-wider font-bold text-slate-400 mb-3">Los 5 Posts de Feed (Visuales, Útiles y Guardables):</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
+          <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 text-xs">
+            <span class="text-amber-400 font-bold block mb-1">01. Picadas</span>
+            <p class="text-[11px] text-slate-400">Fotos reales, porciones y precios claros para el centro de la mesa.</p>
+          </div>
+          <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 text-xs">
+            <span class="text-purple-400 font-bold block mb-1">02. Halloween</span>
+            <p class="text-[11px] text-slate-400">Flyer estético del cóctel con notas de sabor e ingredientes clave.</p>
+          </div>
+          <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 text-xs">
+            <span class="text-cyan-400 font-bold block mb-1">03. Nivel de Estrés</span>
+            <p class="text-[11px] text-slate-400">Carrusel dinámico: según tu día te decimos qué trago pedir hoy.</p>
+          </div>
+          <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 text-xs">
+            <span class="text-emerald-400 font-bold block mb-1">04. Ubicación</span>
+            <p class="text-[11px] text-slate-400">Mapa visual, cómo llegar frente a Ikonos, parqueo y horarios.</p>
+          </div>
+          <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 text-xs">
+            <span class="text-rose-400 font-bold block mb-1">05. Chismecito</span>
+            <p class="text-[11px] text-slate-400">Recopilación de las mejores respuestas enviadas por la gente en historias.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center hidden opacity-0 scale-95" data-slide="8">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs uppercase font-bold tracking-wider text-purple-400 font-display">07 / Perfil de Alto Rendimiento</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-bold font-display text-white mb-2">
+          4 Módulos de Historias Destacadas
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base max-w-2xl mb-6">
+          Optimizamos el perfil para que cualquier usuario nuevo que llegue por un Reel sepa inmediatamente qué pedir, cuánto cuesta y cómo llegar.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <!-- Destacada 1 -->
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 text-center hover:border-amber-400/50 transition-all">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-amber-500/10 border-2 border-amber-500/40 flex items-center justify-center text-xl">
+              📍
+            </div>
+            <h4 class="font-display font-bold text-white text-sm mb-1">PARCHE</h4>
+            <p class="text-xs text-slate-400 mb-2">Ubicación exacta frente a Ikonos, cómo llegar, parqueo, ambiente nocturno y horarios de atención.</p>
+            <span class="text-[10px] text-amber-400 font-semibold uppercase">Ubicación sin dudas</span>
+          </div>
+
+          <!-- Destacada 2 -->
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 text-center hover:border-cyan-400/50 transition-all">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-cyan-500/10 border-2 border-cyan-500/40 flex items-center justify-center text-xl">
+              🍸
+            </div>
+            <h4 class="font-display font-bold text-white text-sm mb-1">CÓCTELES</h4>
+            <p class="text-xs text-slate-400 mb-2">Carta visual de autor, clásicos imperdibles y el destacado de temporada de Halloween.</p>
+            <span class="text-[10px] text-cyan-400 font-semibold uppercase">Antojo directo</span>
+          </div>
+
+          <!-- Destacada 3 -->
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 text-center hover:border-emerald-400/50 transition-all">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-emerald-500/10 border-2 border-emerald-500/40 flex items-center justify-center text-xl">
+              🍟
+            </div>
+            <h4 class="font-display font-bold text-white text-sm mb-1">PARA PICAR</h4>
+            <p class="text-xs text-slate-400 mb-2">Platos para compartir al centro, fotos tentadoras y precios transparentes y sin sorpresas.</p>
+            <span class="text-[10px] text-emerald-400 font-semibold uppercase">Cero miedo a la cuenta</span>
+          </div>
+
+          <!-- Destacada 4 -->
+          <div class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 text-center hover:border-purple-400/50 transition-all">
+            <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-purple-500/10 border-2 border-purple-500/40 flex items-center justify-center text-xl">
+              💬
+            </div>
+            <h4 class="font-display font-bold text-white text-sm mb-1">CHISMECITO</h4>
+            <p class="text-xs text-slate-400 mb-2">Archivo vivo de las anécdotas dominicales, cajas de preguntas y las mejores historias de clientes.</p>
+            <span class="text-[10px] text-purple-400 font-semibold uppercase">Comunidad Real</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center hidden opacity-0 scale-95" data-slide="9">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-800">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs uppercase font-bold tracking-wider text-emerald-400 font-display">08 / Logística de Producción</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-bold font-display text-white mb-3">
+          Máximo Impacto, Cero Estorbo en el Negocio
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base max-w-2xl mb-8">
+          Sabemos que la operación de un drinks truck es sagrada. Nuestro sistema de rodaje está pensado para no entorpecer ni un solo pedido.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800">
+            <div class="text-amber-400 font-bold text-lg mb-2">1 Sola Jornada</div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Grabamos todo el paquete del mes en una sesión ágil de <strong>2 a 3 horas</strong> antes de la hora pico de servicio.
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800">
+            <div class="text-cyan-400 font-bold text-lg mb-2">Guiones Listos al 100%</div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              No llegamos a inventar. Bartender y equipo ya saben exactamente qué preparar, qué frase decir y qué tomas macro se necesitan.
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800">
+            <div class="text-purple-400 font-bold text-lg mb-2">Entrega Lista para Publicar</div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Videos editados con subtítulos dinámicos, audio sincronizado, portadas y textos de copy preparados para programar sin estrés.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3">
+          <span class="text-emerald-400 text-xl">💡</span>
+          <p class="text-xs text-emerald-200">
+            <strong>Resultado:</strong> Chill Dripp tiene contenido de primer nivel corriendo todo el mes mientras el equipo se enfoca en atender la barra.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide slide-transition w-full max-w-5xl h-full flex flex-col justify-center hidden opacity-0 scale-95" data-slide="10">
+      <div class="glass-card rounded-3xl p-8 sm:p-14 border border-amber-500/30 text-center relative overflow-hidden glow-amber">
+        <span class="px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30 inline-block mb-4">
+          El Siguiente Paso
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold font-display text-white mb-4">
+          ¿Listos para encender la barra este mes?
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+          Ya tenemos la estrategia, los ángulos de venta y los 5 guiones listos para rodar. Solo falta cuadrar el día de grabación y poner a Popayán a hablar de Chill Dripp.
+        </p>
+
+        <div class="max-w-md mx-auto bg-slate-900/90 p-5 rounded-2xl border border-slate-800 mb-8 text-left space-y-3">
+          <div class="flex items-center gap-3 text-xs text-slate-300">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">1</span>
+            <span>Aprobación de la parrilla de guiones y posts.</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-slate-300">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">2</span>
+            <span>Fijar fecha y hora para la sesión de grabación (2-3 hrs).</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-slate-300">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">3</span>
+            <span>Edición, entrega y despegue de la campaña de octubre.</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <button id="copy-summary-btn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/25 hover:opacity-95 transition-all">
+            Copiar Resumen de la Propuesta
+          </button>
+          <button onclick="goToSlide(1)" class="px-5 py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-sm font-semibold transition-all">
+            Volver al Inicio
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="w-full px-6 py-4 border-t border-slate-800/80 bg-slate-950/80 backdrop-blur-md flex items-center justify-between z-30">
+    <div class="flex items-center gap-2">
+      <button id="prev-btn" class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-all text-xs font-semibold flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        <span>Anterior</span>
+      </button>
+      <button id="next-btn" class="px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 hover:bg-amber-500/30 transition-all text-xs font-semibold flex items-center gap-1">
+        <span>Siguiente</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+
+    <!-- Slide indicator dots -->
+    <div id="slide-dots" class="hidden md:flex items-center gap-1.5">
+      <!-- Dots injected dynamically by JS -->
+    </div>
+
+    <div class="text-[11px] text-slate-400 flex items-center gap-2">
+      <span class="hidden sm:inline">Usa teclas</span>
+      <kbd class="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300">←</kbd>
+      <kbd class="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300">→</kbd>
+    </div>
+  </footer>
+
+  <!-- Slide Overview Modal -->
+  <div id="overview-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex flex-col p-6 hidden">
+    <div class="max-w-6xl w-full mx-auto flex items-center justify-between mb-6">
+      <h3 class="text-xl font-bold font-display text-white">Índice de Diapositivas</h3>
+      <button id="close-overview-btn" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+    <div id="overview-grid" class="max-w-6xl w-full mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 overflow-y-auto pb-8">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <!-- Notification Banner (replaces alert) -->
+  <div id="toast-msg" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-300 text-xs font-semibold shadow-2xl transition-all opacity-0 pointer-events-none translate-y-3">
+    Mensaje
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+
+    const currentSlideNum = document.getElementById('current-slide-num');
+    const totalSlidesNum = document.getElementById('total-slides-num');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const slideDotsContainer = document.getElementById('slide-dots');
+    const overviewModal = document.getElementById('overview-modal');
+    const overviewBtn = document.getElementById('overview-btn');
+    const closeOverviewBtn = document.getElementById('close-overview-btn');
+    const overviewGrid = document.getElementById('overview-grid');
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    const copySummaryBtn = document.getElementById('copy-summary-btn');
+    const toastMsg = document.getElementById('toast-msg');
+
+    const slideTitles = [
+      "Portada & Promesa",
+      "Diagnóstico & Oportunidad",
+      "Paquete de Entregables",
+      "Fórmula de Retención",
+      "Guiones 1 & 2 (Post-Ofi / Halloween)",
+      "Guiones 3 & 4 (Chismecito / Picadas)",
+      "Reel 5 & 5 Posts de Feed",
+      "4 Historias Destacadas",
+      "Logística de Grabación",
+      "Cierre & Próximos Pasos"
+    ];
+
+    // Initialize slide indicators & overview grid
+    function initPresentation() {
+      totalSlidesNum.textContent = String(totalSlides).padStart(2, '0');
+
+      slides.forEach((_, idx) => {
+        const slideIndex = idx + 1;
+        // Dot button
+        const dot = document.createElement('button');
+        dot.className = `w-2 h-2 rounded-full transition-all ${slideIndex === 1 ? 'bg-amber-400 w-6' : 'bg-slate-700 hover:bg-slate-500'}`;
+        dot.title = `Ir a diapositiva ${slideIndex}: ${slideTitles[idx]}`;
+        dot.addEventListener('click', () => goToSlide(slideIndex));
+        slideDotsContainer.appendChild(dot);
+
+        // Overview item card
+        const card = document.createElement('div');
+        card.className = "p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-400/50 cursor-pointer transition-all flex flex-col justify-between text-left";
+        card.innerHTML = `
+          <div>
+            <span class="text-xs font-mono font-bold text-amber-400">0${slideIndex}</span>
+            <h4 class="text-xs font-semibold text-white mt-1 line-clamp-2">${slideTitles[idx]}</h4>
+          </div>
+          <span class="text-[10px] text-slate-500 mt-4 block">Click para ver</span>
+        `;
+        card.addEventListener('click', () => {
+          goToSlide(slideIndex);
+          closeOverview();
+        });
+        overviewGrid.appendChild(card);
+      });
+
+      updateSlideView();
+    }
+
+    function showToast(text) {
+      toastMsg.textContent = text;
+      toastMsg.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+      toastMsg.classList.add('opacity-100', 'translate-y-0');
+      setTimeout(() => {
+        toastMsg.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+        toastMsg.classList.remove('opacity-100', 'translate-y-0');
+      }, 2500);
+    }
+
+    function goToSlide(targetSlide) {
+      if (targetSlide < 1 || targetSlide > totalSlides) return;
+      currentSlide = targetSlide;
+      updateSlideView();
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        goToSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        goToSlide(currentSlide - 1);
+      }
+    }
+
+    function updateSlideView() {
+      currentSlideNum.textContent = String(currentSlide).padStart(2, '0');
+
+      slides.forEach((slide) => {
+        const index = parseInt(slide.getAttribute('data-slide'));
+        if (index === currentSlide) {
+          slide.classList.remove('hidden');
+          // Trigger smooth CSS animation
+          setTimeout(() => {
+            slide.classList.remove('opacity-0', 'scale-95');
+            slide.classList.add('opacity-100', 'scale-100');
+          }, 10);
+        } else {
+          slide.classList.add('opacity-0', 'scale-95');
+          slide.classList.remove('opacity-100', 'scale-100');
+          slide.classList.add('hidden');
+        }
+      });
+
+      // Update dots
+      const dots = slideDotsContainer.children;
+      Array.from(dots).forEach((dot, idx) => {
+        if (idx + 1 === currentSlide) {
+          dot.className = "w-6 h-2 rounded-full bg-amber-400 transition-all";
+        } else {
+          dot.className = "w-2 h-2 rounded-full bg-slate-700 hover:bg-slate-500 transition-all";
+        }
+      });
+
+      // Prev / Next button states
+      prevBtn.disabled = currentSlide === 1;
+      prevBtn.style.opacity = currentSlide === 1 ? '0.4' : '1';
+      nextBtn.disabled = currentSlide === totalSlides;
+      nextBtn.style.opacity = currentSlide === totalSlides ? '0.4' : '1';
+    }
+
+    // Modal controls
+    function openOverview() {
+      overviewModal.classList.remove('hidden');
+    }
+    function closeOverview() {
+      overviewModal.classList.add('hidden');
+    }
+
+    overviewBtn.addEventListener('click', openOverview);
+    closeOverviewBtn.addEventListener('click', closeOverview);
+
+    // Fullscreen toggle
+    fullscreenBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Escape') {
+        closeOverview();
+      }
+    });
+
+    // Touch Swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const viewport = document.getElementById('presentation-viewport');
+
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture();
+    }, { passive: true });
+
+    function handleGesture() {
+      const threshold = 50;
+      if (touchEndX + threshold < touchStartX) {
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + threshold) {
+        prevSlide();
+      }
+    }
+
+    // Button event listeners
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    // Copy Summary Helper using document.execCommand
+    if (copySummaryBtn) {
+      copySummaryBtn.addEventListener('click', () => {
+        const proposalSummary = `CHILL DRIPP - PROPUESTA MENSUAL DE ENTREGABLES
+Ubicación: Frente a Centro Empresarial Ikonos, Popayán.
+Plan de Acción:
+- 5 Reels Virales (Estructura Hook + Valor + CTA):
+  1. Parche Antiestrés Post-Ofi / Post-U
+  2. Lanzamiento Cóctel Halloween (Especial Octubre)
+  3. Chismecito de Domingo Detrás de la Barra
+  4. Maridaje Cóctel + Picaditas para Compartir
+  5. El Amigo que Siempre Pide lo Mismo
+- 5 Posts de Feed (Carrusel Picadas, Flyer Halloween, Nivel de Estrés, Ubicación Ikonos y Respuestas de Chismecito)
+- 4 Destacadas (PARCHE, CÓCTELES, PARA PICAR, CHISMECITO)
+- Rodaje: 1 sola sesión de 2 a 3 horas sin interrumpir servicio.`;
+
+        const textarea = document.createElement('textarea');
+        textarea.value = proposalSummary;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          showToast('✓ Resumen de la propuesta copiado al portapapeles');
+        } catch (err) {
+          showToast('No se pudo copiar automáticamente');
+        }
+        document.body.removeChild(textarea);
+      });
+    }
+
+    // Initialize on load
+    window.addEventListener('load', initPresentation);
+  </script>
+</body>
+</html>
